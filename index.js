@@ -28,6 +28,9 @@ app.post('/', (req, res) => {
 		case "IntentRequest":
 			requestHandler.handleIntent(body);
 			break;
+		case "SessionEndedRequest":
+			res.end();
+			break;
 		default:
 			console.log("Request not supported");
 			responseObject = requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". \r\rSucks for you I guess");
