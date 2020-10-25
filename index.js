@@ -3,6 +3,8 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser')
 
+const requestHandler = require('./requestHandler')
+
 const app = express();
 const PORT = 4040;
 
@@ -19,14 +21,14 @@ app.post('/', (req, res) => {
 
 	switch(body.request.type) {
 		case "LaunchRequest":
-			handleLaunch(body);
+			requestHandler.handleLaunch(body);
 			break;
 		case "IntentRequest":
-			handleIntent(body);
+			requestHandler.handleIntent(body);
 			break;
 		default:
 			console.log("Request not supported");
-			let errorBody = handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". Sucks for you I guess");
+			let errorBody = requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". Sucks for you I guess");
 			res.send(JSON.stringify(errorBody));
 	}
 

@@ -23,3 +23,9 @@ function handleBadRequest(reasonTitle, reasonDesc) {
 	};
 	return errorBody;
 }
+
+module.exports = {
+	handleLaunch, 
+	handleIntent, 
+	handleBadRequest
+}
