@@ -18,7 +18,8 @@ function handleIntent(json, settings, callback) {
 	const intent = json.request.intent
 	switch(intent.name) {
 		case "NextTrain":
-			callback(intentHandler.nextTrain(json, settings));
+			intentHandler.nextTrain(json, settings)
+				.then(response => callback(response))
 			break;
 		default:
 			callback(handleBadRequest("Intent is not supported", "The intent sent by Alexa is not supported by the skill at the moment. Sucks for you I guess"));
