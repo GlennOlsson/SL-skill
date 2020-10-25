@@ -51,7 +51,7 @@ function nextTrain(json, settings) {
 			let deps = resJSON.ResponseData.Metros.map(metro => new Departure(metro));
 			return deps
 		})
-		.then(deps => deps.filter(dep => dep.departsIn != -1 && dep.direction === direction))
+		.then(deps => deps.filter(dep => dep.departsIn > 0 && dep.direction === direction))
 		//Sorted so we can reply with more information in the future
 		.then(deps => deps.sort((a, b) => a.departsIn > b.departsIn))
 		.then(deps => {
