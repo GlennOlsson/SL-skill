@@ -8,11 +8,7 @@ function handleBadRequest(reasonTitle, reasonDesc) {
 		response: {
 			outputSpeech: {
 				type: "SSML",
-				text: `<speak>
-				<amazon:emotion name="disappointed" intensity="high"> 
-					There was an error with the request. See the app for more information
-				</amazon:emotion>
-			</speak>`,
+				text: '<speak><amazon:emotion name="disappointed" intensity="high"> There was an error with the request. See the app for more information</amazon:emotion></speak>',
 			},
 			card: {
 				type: "Simple",

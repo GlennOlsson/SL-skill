@@ -19,6 +19,8 @@ app.use(bodyParser.json());
 app.post('/', (req, res) => {
 	let body = req.body;
 
+	let responseObject = {}
+
 	switch(body.request.type) {
 		case "LaunchRequest":
 			requestHandler.handleLaunch(body);
@@ -28,8 +30,7 @@ app.post('/', (req, res) => {
 			break;
 		default:
 			console.log("Request not supported");
-			let errorBody = requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". Sucks for you I guess");
-			res.send(JSON.stringify(errorBody));
+			responseObject = requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". \r\rSucks for you I guess");
 	}
 
 	res.send(JSON.stringify(responseObject));
