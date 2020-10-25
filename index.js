@@ -15,9 +15,19 @@ if(!fileData) {
 app.use(bodyParser.json());
 
 app.post('/', (req, res) => {
-	console.log("Request", req.body)
-	let responseObject = {
+	let body = req.body;
 
+	switch(body.request.type) {
+		case "LaunchRequest":
+			handleLaunch(body);
+			break;
+		case "IntentRequest":
+			handelIntent(body);
+			break;
+		default:
+			console.log("Request not supported");
+			let errorBody = handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". Sucks for you I guess");
+			res.send(JSON.stringify(errorBody));
 	}
 
 	res.send(JSON.stringify(responseObject));
