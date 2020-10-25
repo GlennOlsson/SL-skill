@@ -40,8 +40,6 @@ app.post('/', (req, res) => {
 			console.log("Request not supported");
 			res.send(requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". \r\rSucks for you I guess"));
 	}
-
-	res.send(JSON.stringify(responseObject));
 });
 
 app.listen(PORT, () => {
