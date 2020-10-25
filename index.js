@@ -15,26 +15,30 @@ if(!fileData) {
 }
 //TODO: get api tokens from file
 
+const settings = JSON.parse(fileData);
+
 app.use(bodyParser.json());
 
 app.post('/', (req, res) => {
 	let body = req.body;
 
-	let responseObject = {}
+	const callback = (response) => {
+		res.send(response);
+	}
 
 	switch(body.request.type) {
 		case "LaunchRequest":
-			responseObject = requestHandler.handleLaunch(body);
+			requestHandler.handleLaunch(body, settings, callback);
 			break;
 		case "IntentRequest":
-			responseObject = requestHandler.handleIntent(body);
+			requestHandler.handleIntent(body, settings, callback);
 			break;
 		case "SessionEndedRequest":
 			res.send("");
 			return 
 		default:
 			console.log("Request not supported");
-			responseObject = requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". \r\rSucks for you I guess");
+			res.send(requestHandler.handleBadRequest("The request is not supported", "The request sent by Alexa to the server is not supported. The request was \"" + body.request.type + "\". \r\rSucks for you I guess"));
 	}
 
 	res.send(JSON.stringify(responseObject));

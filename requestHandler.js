@@ -1,5 +1,7 @@
-function handleLaunch(json) {
-	return {
+const intentHandler = require("./intentHandler");
+
+function handleLaunch(json, settings, callback) {
+	callback({
 		response: {
 			outputSpeech: {
 				type: "SSML",
@@ -9,20 +11,17 @@ function handleLaunch(json) {
 		},
 		version: "1.0",
 		sessionAttributes: {},
-	}
+	})
 }
 
-function handleIntent(json) {
-	return {
-		response: {
-			outputSpeech: {
-				type: "SSML",
-				ssml:
-					"<speak>The next train leaves in <amazon:emotion name=\"excited\" intensity=\"high\"> 5 minutes</amazon:emotion></speak>",
-			},
-		},
-		version: "1.0",
-		sessionAttributes: {},
+function handleIntent(json, settings, callback) {
+	const intent = json.request.intent
+	switch(intent.name) {
+		case "NextTrain":
+			callback(intentHandler.nextTrain(json, settings));
+			break;
+		default:
+			callback(handleBadRequest("Intent is not supported", "The intent sent by Alexa is not supported by the skill at the moment. Sucks for you I guess"));
 	}
 }
 
@@ -38,12 +37,6 @@ function handleBadRequest(reasonTitle, reasonDesc) {
 				type: "Simple",
 				title: reasonTitle,
 				content: reasonDesc,
-			},
-			reprompt: {
-				outputSpeech: {
-					type: "SSML",
-					ssml: "<speak>Go ahead and say hello to me!</speak>",
-				},
 			},
 			shouldEndSession: false,
 		},
