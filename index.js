@@ -22,7 +22,7 @@ app.post('/', (req, res) => {
 			handleLaunch(body);
 			break;
 		case "IntentRequest":
-			handelIntent(body);
+			handleIntent(body);
 			break;
 		default:
 			console.log("Request not supported");
