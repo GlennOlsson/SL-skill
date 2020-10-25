@@ -1,6 +1,30 @@
-function handleLaunch(json) {}
+function handleLaunch(json) {
+	return {
+		response: {
+			outputSpeech: {
+				type: "SSML",
+				ssml:
+					"<speak>This skill can help you with the <amazon:emotion name=\"excited\" intensity=\"high\"> transit schedule in Stockholm, Sweden</amazon:emotion></speak>",
+			},
+		},
+		version: "1.0",
+		sessionAttributes: {},
+	}
+}
 
-function handleIntent(json) {}
+function handleIntent(json) {
+	return {
+		response: {
+			outputSpeech: {
+				type: "SSML",
+				ssml:
+					"<speak>The next train leaves in <amazon:emotion name=\"excited\" intensity=\"high\"> 5 minutes</amazon:emotion></speak>",
+			},
+		},
+		version: "1.0",
+		sessionAttributes: {},
+	}
+}
 
 function handleBadRequest(reasonTitle, reasonDesc) {
 	const errorBody = {

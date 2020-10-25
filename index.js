@@ -3,7 +3,8 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser')
 
-const requestHandler = require('./requestHandler')
+const requestHandler = require('./requestHandler');
+const { response } = require('express');
 
 const app = express();
 const PORT = 4040;
@@ -23,10 +24,10 @@ app.post('/', (req, res) => {
 
 	switch(body.request.type) {
 		case "LaunchRequest":
-			requestHandler.handleLaunch(body);
+			responseObject = requestHandler.handleLaunch(body);
 			break;
 		case "IntentRequest":
-			requestHandler.handleIntent(body);
+			responseObject = requestHandler.handleIntent(body);
 			break;
 		case "SessionEndedRequest":
 			res.send("");
